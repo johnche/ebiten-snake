@@ -68,9 +68,7 @@ func (w *World) Update(pressedKeys []ebiten.Key) error {
 		return fmt.Errorf("Snake hit the wall: %v", w.Snake.Head.Position)
 	}
 
-	if len(pressedKeys) > 0 {
-		w.Snake.Move()
-	}
+	w.Snake.Move()
 
 	if apple := w.Snake.Head.Position.OverlapAny(w.Apples); apple != nil {
 		w.Snake.Eat()

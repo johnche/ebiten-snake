@@ -21,6 +21,7 @@ type Game struct {
 	world *world.World
 
 	tps     int
+	delta   time.Duration
 	tick    time.Time
 	running bool
 }
@@ -64,7 +65,7 @@ func New(opts ...Option) *Game {
 		height: 500,
 		rows:   50,
 		cols:   50,
-		tps:    5,
+		tps:    10,
 
 		tick:    time.Now(),
 		running: true,
@@ -74,6 +75,7 @@ func New(opts ...Option) *Game {
 		opt(game)
 	}
 
+	game.delta = time.Duration(float64(time.Second) / float64(game.tps))
 	game.world = world.New(game.rows, game.cols)
 	game.imageCache = NewImageCache(game.width/game.cols, game.height/game.rows)
 
@@ -91,9 +93,14 @@ func (g *Game) Update() error {
 	}
 
 	pressedKeys := inpututil.AppendPressedKeys([]ebiten.Key{})
-	if err := g.world.Update(pressedKeys); err != nil {
-		fmt.Printf("%v\n", err)
-		g.running = false
+
+	if now := time.Now(); now.After(g.tick.Add(g.delta)) {
+		if err := g.world.Update(pressedKeys); err != nil {
+			fmt.Printf("%v\n", err)
+			g.running = false
+		}
+
+		g.tick = now
 	}
 
 	return nil
