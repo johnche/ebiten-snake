@@ -1,10 +1,6 @@
 package snake
 
-import (
-	"fmt"
-
-	"github.com/johnche/ebiten-snake/lib"
-)
+import "github.com/johnche/ebiten-snake/lib"
 
 type Part struct {
 	Position lib.Coordinate
@@ -18,14 +14,12 @@ func (p *Part) Move(newPosition lib.Coordinate, grow bool, result []lib.Coordina
 	result = append(result, p.Position)
 
 	if p.Next != nil {
-		p.Move(oldPosition, grow, result)
+		result = p.Next.Move(oldPosition, grow, result)
 	} else if grow {
 		p.Next = &Part{Position: oldPosition}
 		result = append(result, p.Next.Position)
-		fmt.Printf("lastpart: %v\n", p)
 	}
 
-	fmt.Printf("result: %v\n", result)
 	return result
 }
 

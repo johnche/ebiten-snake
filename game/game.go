@@ -63,8 +63,8 @@ func New(opts ...Option) *Game {
 	game := &Game{
 		width:  500,
 		height: 500,
-		rows:   50,
-		cols:   50,
+		rows:   20,
+		cols:   20,
 		tps:    10,
 
 		tick:    time.Now(),
@@ -107,7 +107,6 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) GameOver(screen *ebiten.Image) {
-	//ebitenutil.DebugPrintAt(screen, "Game over!", 0, 0)
 	ebitenutil.DebugPrint(screen, "Game over!")
 }
 

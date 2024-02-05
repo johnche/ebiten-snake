@@ -10,7 +10,6 @@ import (
 	"github.com/johnche/ebiten-snake/snake"
 )
 
-// Make sure actors dont collide or overlap
 type World struct {
 	Boundaries         lib.Area
 	LastAppleSpawnTime time.Time
@@ -20,10 +19,8 @@ type World struct {
 
 func New(rows, cols int) *World {
 	snake := snake.New(lib.Coordinate{
-		//X: rand.Intn(cols),
-		//Y: rand.Intn(rows),
-		X: 0,
-		Y: 5,
+		X: rand.Intn(cols),
+		Y: rand.Intn(rows),
 	}, ebiten.KeyRight)
 
 	newWorld := &World{
