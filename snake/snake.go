@@ -17,8 +17,6 @@ type Snake struct {
 	HasEaten  bool
 	direction ebiten.Key
 	Length    int
-
-	// This is redundant to head, but an optimization for 1 less loop. worth?
 	Positions []lib.Coordinate
 }
 
