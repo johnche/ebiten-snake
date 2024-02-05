@@ -51,7 +51,7 @@ func (s *Snake) Eat() {
 
 func (s *Snake) Move() {
 	s.Positions = s.Head.Move(
-		s.Head.Position.Add(Step[s.direction]),
+		s.NextStep(),
 		s.HasEaten,
 		[]lib.Coordinate{},
 	)
