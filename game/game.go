@@ -58,6 +58,7 @@ func WithTPS(tps int) Option {
 }
 
 func New(opts ...Option) *Game {
+	// defaults
 	game := &Game{
 		width:  500,
 		height: 500,

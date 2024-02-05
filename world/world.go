@@ -12,7 +12,6 @@ import (
 
 // Make sure actors dont collide or overlap
 type World struct {
-	//Canvas     *ebiten.Image
 	Boundaries         lib.Area
 	LastAppleSpawnTime time.Time
 	Apples             []lib.Coordinate

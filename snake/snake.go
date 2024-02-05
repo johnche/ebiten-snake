@@ -1,8 +1,6 @@
 package snake
 
 import (
-	"image/color"
-
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/johnche/ebiten-snake/lib"
 )
@@ -19,7 +17,6 @@ type Snake struct {
 	HasEaten  bool
 	direction ebiten.Key
 	Length    int
-	Color     color.Color
 
 	// This is redundant to head, but an optimization for 1 less loop. worth?
 	Positions []lib.Coordinate
@@ -29,7 +26,6 @@ func New(startingPoint lib.Coordinate, startingDirection ebiten.Key) *Snake {
 	return &Snake{
 		Head:      Part{Position: startingPoint},
 		direction: startingDirection,
-		Color:     color.RGBA{0, 0, 255, 255},
 		HasEaten:  false,
 		Length:    1,
 		Positions: []lib.Coordinate{startingPoint},
@@ -65,9 +61,4 @@ func (s *Snake) Move() {
 
 func (s *Snake) NextStep() lib.Coordinate {
 	return s.Head.Position.Add(Step[s.direction])
-}
-
-// DEBUG only ===========================
-func (s Snake) Direction() ebiten.Key {
-	return s.direction
 }
