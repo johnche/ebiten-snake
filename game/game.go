@@ -87,12 +87,17 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 }
 
 func (g *Game) Update() error {
-	if !g.running {
-		// Nothing to do when game over
-		return nil
-	}
-
 	pressedKeys := inpututil.AppendPressedKeys([]ebiten.Key{})
+
+	if !g.running {
+		if ebiten.IsKeyPressed(ebiten.KeySpace) {
+			// Restart game
+			g.world = world.New(g.rows, g.cols)
+			g.running = true
+		} else {
+			return nil
+		}
+	}
 	g.world.Snake.SetDirection(pressedKeys)
 
 	if now := time.Now(); now.After(g.tick.Add(g.delta)) {
@@ -108,7 +113,7 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) GameOver(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Game over!")
+	ebitenutil.DebugPrint(screen, "Game over! Press space for restart")
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
