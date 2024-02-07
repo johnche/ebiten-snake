@@ -113,10 +113,12 @@ func (g *Game) Update() error {
 }
 
 func (g *Game) GameOver(screen *ebiten.Image) {
-	ebitenutil.DebugPrint(screen, "Game over! Press space for restart")
+	ebitenutil.DebugPrintAt(screen, "Game over! Press space for restart", 0, 12)
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
+	ebitenutil.DebugPrint(screen, fmt.Sprintf("Points: %d", g.world.Snake.Length-1))
+
 	g.imageCache.RegisterActor(g.world.Snake.Positions, color.RGBA{0, 0, 255, 255})
 	g.imageCache.RegisterActor(g.world.Apples, color.RGBA{255, 255, 255, 255})
 	g.imageCache.DrawImages(screen)
