@@ -38,8 +38,7 @@ func (i *ImageCache) newImage() *ebiten.Image {
 
 func (i *ImageCache) updateCache() {
 	if diff := len(i.colorBlocks) - len(i.images); diff > 0 {
-		// go 1.22 feb 2024 -> for i := range N {}
-		for j := 0; j < diff; j++ {
+		for range diff {
 			i.images = append(i.images, i.newImage())
 		}
 	}
