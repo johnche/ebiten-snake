@@ -58,9 +58,7 @@ func (w *World) RandCoordinate() lib.Coordinate {
 	}
 }
 
-func (w *World) Update(pressedKeys []ebiten.Key) error {
-	w.Snake.SetDirection(pressedKeys)
-
+func (w *World) Update() error {
 	if !w.Snake.NextStep().IsWithin(w.Boundaries) {
 		return fmt.Errorf("Snake hit the wall: %v", w.Snake.Head.Position)
 	}

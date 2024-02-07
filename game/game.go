@@ -93,9 +93,10 @@ func (g *Game) Update() error {
 	}
 
 	pressedKeys := inpututil.AppendPressedKeys([]ebiten.Key{})
+	g.world.Snake.SetDirection(pressedKeys)
 
 	if now := time.Now(); now.After(g.tick.Add(g.delta)) {
-		if err := g.world.Update(pressedKeys); err != nil {
+		if err := g.world.Update(); err != nil {
 			fmt.Printf("%v\n", err)
 			g.running = false
 		}
